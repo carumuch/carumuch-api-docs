@@ -1,8 +1,8 @@
 openapi: 3.0.1
 info:
-  title: 카우머치
-  description: API 문서
-  version: 2025.12.01 15:58
+  title: 🚘 카우머치 Car U Much
+  description: 카우머치 서비스의 API 문서입니다.
+  version: 2025.12.01 22:48
 servers:
 - url: https://hosting-not-yet
 - url: http://localhost:8080
@@ -24,14 +24,14 @@ paths:
             schema:
               $ref: "#/components/schemas/AuthenticateUserRequest"
             examples:
+              로그인_4xx_비밀번호가_올바르지_않음:
+                value: "{\"loginId\":\"test1\",\"password\":\"wrong1234@\"}"
               로그인_4xx_아이디_존재하지_않음:
                 value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\"}"
               로그인_4xx_요청_데이터_유효성_검사_실패:
                 value: "{\"loginId\":\"test1\",\"password\":\"1234\"}"
               로그인_2xx:
                 value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\"}"
-              로그인_4xx_비밀번호가_올바르지_않음:
-                value: "{\"loginId\":\"test1\",\"password\":\"wrong1234@\"}"
       responses:
         "400":
           description: "400"
@@ -40,6 +40,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiErrorResponse"
               examples:
+                로그인_4xx_비밀번호가_올바르지_않음:
+                  value: |-
+                    {
+                      "message" : "아이디 혹은 비밀번호가 일치하지 않습니다.",
+                      "data" : null
+                    }
                 로그인_4xx_아이디_존재하지_않음:
                   value: |-
                     {
@@ -50,12 +56,6 @@ paths:
                   value: |-
                     {
                       "message" : "password의 필드 값 유효하지 않습니다.",
-                      "data" : null
-                    }
-                로그인_4xx_비밀번호가_올바르지_않음:
-                  value: |-
-                    {
-                      "message" : "아이디 혹은 비밀번호가 일치하지 않습니다.",
                       "data" : null
                     }
         "200":
@@ -122,6 +122,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiErrorResponse"
               examples:
+                토큰_재발급_4xx_재발급_토큰_쿠키가_전송되지_않음:
+                  value: |-
+                    {
+                      "message" : "쿠키가 유효하지 않습니다.",
+                      "data" : null
+                    }
                 토큰_재발급_4xx_재발급_토큰이_서버에_존재하지_않은_경우:
                   value: |-
                     {
@@ -132,12 +138,6 @@ paths:
                   value: |-
                     {
                       "message" : "토큰이 유효하지 않습니다.",
-                      "data" : null
-                    }
-                토큰_재발급_4xx_재발급_토큰_쿠키가_전송되지_않음:
-                  value: |-
-                    {
-                      "message" : "쿠키가 유효하지 않습니다.",
                       "data" : null
                     }
         "200":
@@ -216,24 +216,11 @@ paths:
             schema:
               $ref: "#/components/schemas/RetrievePasswordRequest"
             examples:
-              비밀번호_찾기_2xx:
-                value: "{\"loginId\":\"test1\",\"email\":\"test1@gmail.com\"}"
               비밀번호_찾기_4xx_데이터에_해당하는_사용자가_없는_경우:
                 value: "{\"loginId\":\"test1\",\"email\":\"test1@gmail.com\"}"
+              비밀번호_찾기_2xx:
+                value: "{\"loginId\":\"test1\",\"email\":\"test1@gmail.com\"}"
       responses:
-        "200":
-          description: "200"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-              examples:
-                비밀번호_찾기_2xx:
-                  value: |-
-                    {
-                      "message" : "OK",
-                      "data" : null
-                    }
         "404":
           description: "404"
           content:
@@ -245,6 +232,19 @@ paths:
                   value: |-
                     {
                       "message" : "User을(를) 찾을 수 없습니다.",
+                      "data" : null
+                    }
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+              examples:
+                비밀번호_찾기_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
                       "data" : null
                     }
   /auth/password/reset:
@@ -261,24 +261,11 @@ paths:
             schema:
               $ref: "#/components/schemas/ResetPasswordRequest"
             examples:
-              비밀번호_초기화_4xx_토큰이_올바르지_않은_경우:
-                value: "{\"token\":\"wrongToken\",\"password\":\"test1@1234\"}"
               비밀번호_초기화_2xx:
                 value: "{\"token\":\"testToken\",\"password\":\"test1@1234\"}"
+              비밀번호_초기화_4xx_토큰이_올바르지_않은_경우:
+                value: "{\"token\":\"wrongToken\",\"password\":\"test1@1234\"}"
       responses:
-        "401":
-          description: "401"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiErrorResponse"
-              examples:
-                비밀번호_초기화_4xx_토큰이_올바르지_않은_경우:
-                  value: |-
-                    {
-                      "message" : "토큰이 유효하지 않습니다.",
-                      "data" : null
-                    }
         "200":
           description: "200"
           content:
@@ -290,6 +277,19 @@ paths:
                   value: |-
                     {
                       "message" : "OK",
+                      "data" : null
+                    }
+        "401":
+          description: "401"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                비밀번호_초기화_4xx_토큰이_올바르지_않은_경우:
+                  value: |-
+                    {
+                      "message" : "토큰이 유효하지 않습니다.",
                       "data" : null
                     }
   /auth/password/verify:
@@ -342,8 +342,8 @@ paths:
   /health:
     get:
       tags:
-      - "🏠[Team Workspace]"
-      summary: 팀 협업을 위한 공용 정보
+      - "🚗 [카우머치 TEAM Workspace]"
+      summary: 카우머치 개발자를 위한 공용 정보
       description: |
         ### TEAM 공용 공간
 
@@ -427,24 +427,11 @@ paths:
             schema:
               $ref: "#/components/schemas/UpdateUserRequest"
             examples:
-              회원_정보_업데이트_2xx:
-                value: "{\"name\":\"이름바꾸기\"}"
               회원_정보_업데이트_4xx_요청_데이터_유효성_검사_실패:
                 value: "{\"name\":\"\"}"
+              회원_정보_업데이트_2xx:
+                value: "{\"name\":\"이름바꾸기\"}"
       responses:
-        "200":
-          description: "200"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-              examples:
-                회원_정보_업데이트_2xx:
-                  value: |-
-                    {
-                      "message" : "OK",
-                      "data" : 1
-                    }
         "400":
           description: "400"
           content:
@@ -457,6 +444,19 @@ paths:
                     {
                       "message" : "name의 필드 값 유효하지 않습니다.",
                       "data" : null
+                    }
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+              examples:
+                회원_정보_업데이트_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
+                      "data" : 1
                     }
     post:
       tags:
@@ -471,51 +471,19 @@ paths:
             schema:
               $ref: "#/components/schemas/RegisterUserRequest"
             examples:
-              회원가입_2xx:
-                value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\",\"email\"\
-                  :\"test1@gmail.com\",\"name\":\"홍길동\"}"
-              회원가입_4xx_아이디_중복:
-                value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\",\"email\"\
-                  :\"test1@gmail.com\",\"name\":\"홍길동\"}"
               회원가입_4xx_요청_데이터_유효성_검사_실패:
                 value: "{\"loginId\":\"test1\",\"password\":\"1234\",\"email\":\"\
                   test1@gmail.com\",\"name\":\"홍길동\"}"
               회원가입_4xx_이메일_중복:
                 value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\",\"email\"\
                   :\"test1@gmail.com\",\"name\":\"홍길동\"}"
+              회원가입_2xx:
+                value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\",\"email\"\
+                  :\"test1@gmail.com\",\"name\":\"홍길동\"}"
+              회원가입_4xx_아이디_중복:
+                value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\",\"email\"\
+                  :\"test1@gmail.com\",\"name\":\"홍길동\"}"
       responses:
-        "200":
-          description: "200"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-              examples:
-                회원가입_2xx:
-                  value: |-
-                    {
-                      "message" : "OK",
-                      "data" : 0
-                    }
-        "409":
-          description: "409"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiErrorResponse"
-              examples:
-                회원가입_4xx_아이디_중복:
-                  value: |-
-                    {
-                      "message" : "이미 사용 중인 아이디입니다.",
-                      "data" : null
-                    }
-                회원가입_4xx_이메일_중복:
-                  value: |-
-                    {
-                      "message" : "이미 사용 중인 이메일입니다.",
-                      "data" : null
-                    }
         "400":
           description: "400"
           content:
@@ -528,6 +496,38 @@ paths:
                     {
                       "message" : "password의 필드 값 유효하지 않습니다.",
                       "data" : null
+                    }
+        "409":
+          description: "409"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                회원가입_4xx_이메일_중복:
+                  value: |-
+                    {
+                      "message" : "이미 사용 중인 이메일입니다.",
+                      "data" : null
+                    }
+                회원가입_4xx_아이디_중복:
+                  value: |-
+                    {
+                      "message" : "이미 사용 중인 아이디입니다.",
+                      "data" : null
+                    }
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+              examples:
+                회원가입_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
+                      "data" : 0
                     }
     delete:
       tags:
