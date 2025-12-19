@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: 🚘 카우머치 Car U Much
   description: 카우머치 서비스의 API 문서입니다.
-  version: 2025.12.15 00:18
+  version: 2025.12.19 17:17
 servers:
 - url: https://hosting-not-yet
 - url: http://localhost:8080
@@ -337,6 +337,418 @@ paths:
                   value: |-
                     {
                       "message" : "인증번호가 올바르지 않습니다.",
+                      "data" : null
+                    }
+  /damage-reports:
+    get:
+      tags:
+      - Damage - Report
+      summary: 사고 레포트 전체 목록 조회
+      description: "## 사고 레포트 목록 조회 기능 \n### 사용법 \n- size는 10 ~ 100입니다. 만약 다른 값이 들\
+        어오면 10개로 고정합니다.\n- page가 없거나, 음수라면 첫 페이지로 고정합니다."
+      operationId: 사고_레포트_전체_목록_조회_2xx_
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PagingResponse"
+              examples:
+                사고_레포트_전체_목록_조회_2xx_두번째_페이지:
+                  value: |-
+                    {
+                      "message" : "OK",
+                      "data" : {
+                        "content" : [ {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:07.891542447"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:07.891542447"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:07.891542447"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:07.891542447"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:07.891542447"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:07.891542447"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:07.891542447"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:07.891542447"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:07.891542447"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:07.891542447"
+                        } ],
+                        "page" : {
+                          "number" : 2,
+                          "size" : 10,
+                          "totalElements" : 30,
+                          "totalPages" : 3,
+                          "hasNext" : true,
+                          "hasPrevious" : true
+                        }
+                      }
+                    }
+                사고_레포트_전체_목록_조회_2xx_첫_페이지:
+                  value: |-
+                    {
+                      "message" : "OK",
+                      "data" : {
+                        "content" : [ {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:08.088387094"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:08.088387094"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:08.088387094"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:08.088387094"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:08.088387094"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:08.088387094"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:08.088387094"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:08.088387094"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:08.088387094"
+                        }, {
+                          "id" : 1,
+                          "description" : "소화전을 박았습니다.",
+                          "preferredRepairSido" : "서울시",
+                          "preferredRepairSigungu" : "송파구",
+                          "isPickupRequired" : false,
+                          "status" : "REGISTERED",
+                          "createdAt" : "2025-12-19T08:18:08.088387094"
+                        } ],
+                        "page" : {
+                          "number" : 1,
+                          "size" : 10,
+                          "totalElements" : 30,
+                          "totalPages" : 3,
+                          "hasNext" : true,
+                          "hasPrevious" : false
+                        }
+                      }
+                    }
+    post:
+      tags:
+      - Damage - Report
+      summary: 사고 레포트 등록
+      description: "## 사고 레포트 등록 기능 \n### 사용법 \n- 필드의 validation을 확인해주세요.\n- 사고 레포\
+        트가 등록되면 AI 견적서 작업을 시작합니다."
+      operationId: 사고_레포트_등록_
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: "#/components/schemas/RegisterDamageReportRequest"
+            examples:
+              사고_레포트_등록_2xx:
+                value: "{\"description\":\"소화전을 박았습니다.\",\"preferredRepairSido\":\"\
+                  서울시\",\"preferredRepairSigungu\":\"송파구\",\"isPickupRequired\":false,\"\
+                  imagePath\":\"http://s3.image.test1\"}"
+              사고_레포트_등록_4xx_등록된_차량이_없는_경우:
+                value: "{\"description\":\"소화전을 박았습니다.\",\"preferredRepairSido\":\"\
+                  서울시\",\"preferredRepairSigungu\":\"송파구\",\"isPickupRequired\":false,\"\
+                  imagePath\":\"http://s3.image.test1\"}"
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+              examples:
+                사고_레포트_등록_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
+                      "data" : 1
+                    }
+        "404":
+          description: "404"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                사고_레포트_등록_4xx_등록된_차량이_없는_경우:
+                  value: |-
+                    {
+                      "message" : "Vehicle을(를) 찾을 수 없습니다.",
+                      "data" : null
+                    }
+  /damage-reports/recent:
+    get:
+      tags:
+      - Damage - Report
+      summary: 최근 등록한 사고 레포트 목록 조회
+      description: "## 최근 등록한 사고 레포트 목록 조회 기능 \n### 사용법 \n- 최근 등록한 10개의 사고 레포트를 조회\
+        합니다.\n- 그 이상 조회 필요시 전체 목록 조회로 사고 레포트를 확인해야합니다."
+      operationId: 최근_등록된_사고_레포트_목록_조회_2xx
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DamageReportInfoResponse"
+              examples:
+                최근_등록된_사고_레포트_목록_조회_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
+                      "data" : [ {
+                        "id" : 1,
+                        "description" : "소화전을 박았습니다.",
+                        "preferredRepairSido" : "서울시",
+                        "preferredRepairSigungu" : "송파구",
+                        "isPickupRequired" : false,
+                        "status" : "REGISTERED",
+                        "createdAt" : "2025-12-19T08:18:08.263450953"
+                      }, {
+                        "id" : 1,
+                        "description" : "소화전을 박았습니다.",
+                        "preferredRepairSido" : "서울시",
+                        "preferredRepairSigungu" : "송파구",
+                        "isPickupRequired" : false,
+                        "status" : "REGISTERED",
+                        "createdAt" : "2025-12-19T08:18:08.263450953"
+                      }, {
+                        "id" : 1,
+                        "description" : "소화전을 박았습니다.",
+                        "preferredRepairSido" : "서울시",
+                        "preferredRepairSigungu" : "송파구",
+                        "isPickupRequired" : false,
+                        "status" : "REGISTERED",
+                        "createdAt" : "2025-12-19T08:18:08.263450953"
+                      }, {
+                        "id" : 1,
+                        "description" : "소화전을 박았습니다.",
+                        "preferredRepairSido" : "서울시",
+                        "preferredRepairSigungu" : "송파구",
+                        "isPickupRequired" : false,
+                        "status" : "REGISTERED",
+                        "createdAt" : "2025-12-19T08:18:08.263450953"
+                      }, {
+                        "id" : 1,
+                        "description" : "소화전을 박았습니다.",
+                        "preferredRepairSido" : "서울시",
+                        "preferredRepairSigungu" : "송파구",
+                        "isPickupRequired" : false,
+                        "status" : "REGISTERED",
+                        "createdAt" : "2025-12-19T08:18:08.263450953"
+                      }, {
+                        "id" : 1,
+                        "description" : "소화전을 박았습니다.",
+                        "preferredRepairSido" : "서울시",
+                        "preferredRepairSigungu" : "송파구",
+                        "isPickupRequired" : false,
+                        "status" : "REGISTERED",
+                        "createdAt" : "2025-12-19T08:18:08.263450953"
+                      }, {
+                        "id" : 1,
+                        "description" : "소화전을 박았습니다.",
+                        "preferredRepairSido" : "서울시",
+                        "preferredRepairSigungu" : "송파구",
+                        "isPickupRequired" : false,
+                        "status" : "REGISTERED",
+                        "createdAt" : "2025-12-19T08:18:08.263450953"
+                      }, {
+                        "id" : 1,
+                        "description" : "소화전을 박았습니다.",
+                        "preferredRepairSido" : "서울시",
+                        "preferredRepairSigungu" : "송파구",
+                        "isPickupRequired" : false,
+                        "status" : "REGISTERED",
+                        "createdAt" : "2025-12-19T08:18:08.263450953"
+                      }, {
+                        "id" : 1,
+                        "description" : "소화전을 박았습니다.",
+                        "preferredRepairSido" : "서울시",
+                        "preferredRepairSigungu" : "송파구",
+                        "isPickupRequired" : false,
+                        "status" : "REGISTERED",
+                        "createdAt" : "2025-12-19T08:18:08.263450953"
+                      }, {
+                        "id" : 1,
+                        "description" : "소화전을 박았습니다.",
+                        "preferredRepairSido" : "서울시",
+                        "preferredRepairSigungu" : "송파구",
+                        "isPickupRequired" : false,
+                        "status" : "REGISTERED",
+                        "createdAt" : "2025-12-19T08:18:08.263450953"
+                      } ]
+                    }
+  /damage-reports/{damageReportId}:
+    put:
+      tags:
+      - Damage - Report
+      summary: 사고 레포트 수정
+      description: "## 사고 레포트 수정 기능 \n### 사용법 \n- 필드의 validation을 확인해주세요.\n- 이미 처리\
+        \ 중인 사고 레포트는 등록된 이미지는 수정할 수 없습니다."
+      operationId: 사고_레포트_수정_
+      parameters:
+      - name: damageReportId
+        in: path
+        description: ""
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: "#/components/schemas/UpdateDamageReportRequest"
+            examples:
+              사고_레포트_수정_2xx:
+                value: "{\"description\":\"소화전을 박았습니다.\",\"preferredRepairSido\":\"\
+                  서울시\",\"preferredRepairSigungu\":\"송파구\",\"isPickupRequired\":false}"
+              사고_레포트_수정_4xx_등록된_사고_레포트가_없는_경우:
+                value: "{\"description\":\"소화전을 박았습니다.\",\"preferredRepairSido\":\"\
+                  서울시\",\"preferredRepairSigungu\":\"송파구\",\"isPickupRequired\":false}"
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+              examples:
+                사고_레포트_수정_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
+                      "data" : null
+                    }
+        "404":
+          description: "404"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                사고_레포트_수정_4xx_등록된_사고_레포트가_없는_경우:
+                  value: |-
+                    {
+                      "message" : "DamageReport을(를) 찾을 수 없습니다.",
                       "data" : null
                     }
   /health:
@@ -1082,6 +1494,49 @@ components:
         loginId:
           type: string
           description: 사용자의 아이디입니다.
+    DamageReportInfoResponse:
+      title: DamageReportInfoResponse
+      required:
+      - message
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            required:
+            - createdAt
+            - description
+            - id
+            - isPickupRequired
+            - preferredRepairSido
+            - preferredRepairSigungu
+            - status
+            type: object
+            properties:
+              createdAt:
+                type: string
+                description: 사고 레포트가 등록된 시간입니다.
+              preferredRepairSido:
+                type: string
+                description: 사고 수리 희망 지역 시/도 입니다.
+              isPickupRequired:
+                type: boolean
+                description: 사고 수리 차량 픽업 희망 여부입니다.
+              preferredRepairSigungu:
+                type: string
+                description: 사고 수리 희망 지역 시/군/구 입니다.
+              description:
+                type: string
+                description: 사고 레포트 내용입니다.
+              id:
+                type: number
+                description: 사고 레포트 PK입니다.
+              status:
+                type: string
+                description: 사고 레포트의 처리 상태입니다.
+        message:
+          type: string
+          description: 성공 응답 메세지입니다.
     UpdateVehicleRequest:
       title: UpdateVehicleRequest
       required:
@@ -1170,6 +1625,31 @@ components:
         loginId:
           type: string
           description: 아이디는 영문 4자리 이상입니다.
+    RegisterDamageReportRequest:
+      title: RegisterDamageReportRequest
+      required:
+      - description
+      - imagePath
+      - isPickupRequired
+      - preferredRepairSido
+      - preferredRepairSigungu
+      type: object
+      properties:
+        preferredRepairSido:
+          type: string
+          description: 사고 수리 희망 지역 시/도 입니다.
+        isPickupRequired:
+          type: boolean
+          description: 사고 처리 시 차량 픽업 희망 여부 입니다.
+        imagePath:
+          type: string
+          description: 사고 부위 사진 URL입니다.
+        preferredRepairSigungu:
+          type: string
+          description: 사고 수리 희망 지역 시/군/구 입니다.
+        description:
+          type: string
+          description: 사고 레포트 내용입니다.
     ResetPasswordRequest:
       title: ResetPasswordRequest
       required:
@@ -1183,6 +1663,80 @@ components:
         token:
           type: string
           description: 인증번호로 얻은 임시 토큰입니다.
+    PagingResponse:
+      title: PagingResponse
+      required:
+      - message
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            page:
+              required:
+              - hasNext
+              - hasPrevious
+              - number
+              - size
+              - totalElements
+              - totalPages
+              type: object
+              properties:
+                number:
+                  type: number
+                  description: 현재 조회 페이지 번호입니다.
+                size:
+                  type: number
+                  description: 한 페이지의 데이터 개수입니다.
+                totalPages:
+                  type: number
+                  description: 조회할 수 있는 전체 페이지 번호입니다.
+                hasPrevious:
+                  type: boolean
+                  description: 이전 페이지 여부입니다.
+                hasNext:
+                  type: boolean
+                  description: 다음 페이지의 여부입니다.
+                totalElements:
+                  type: number
+                  description: 조회할 수 있는 전체 데이터의 개수입니다.
+            content:
+              type: array
+              items:
+                required:
+                - createdAt
+                - description
+                - id
+                - isPickupRequired
+                - preferredRepairSido
+                - preferredRepairSigungu
+                - status
+                type: object
+                properties:
+                  createdAt:
+                    type: string
+                    description: 사고 레포트가 등록된 시간입니다.
+                  preferredRepairSido:
+                    type: string
+                    description: 사고 수리 희망 지역 시/도 입니다.
+                  isPickupRequired:
+                    type: boolean
+                    description: 사고 수리 차량 픽업 희망 여부입니다.
+                  preferredRepairSigungu:
+                    type: string
+                    description: 사고 수리 희망 지역 시/군/구 입니다.
+                  description:
+                    type: string
+                    description: 사고 레포트 내용입니다.
+                  id:
+                    type: number
+                    description: 사고 레포트 PK입니다.
+                  status:
+                    type: string
+                    description: 사고 레포트의 처리 상태입니다.
+        message:
+          type: string
+          description: 성공 응답 메세지입니다.
     UpdateUserRequest:
       title: UpdateUserRequest
       required:
@@ -1246,6 +1800,27 @@ components:
         email:
           type: string
           description: 사용자의 이메일입니다.
+    UpdateDamageReportRequest:
+      title: UpdateDamageReportRequest
+      required:
+      - description
+      - isPickupRequired
+      - preferredRepairSido
+      - preferredRepairSigungu
+      type: object
+      properties:
+        preferredRepairSido:
+          type: string
+          description: 사고 수리 희망 지역 시/도 입니다.
+        isPickupRequired:
+          type: boolean
+          description: 사고 처리 시 차량 픽업 희망 여부 입니다.
+        preferredRepairSigungu:
+          type: string
+          description: 사고 수리 희망 지역 시/군/구 입니다.
+        description:
+          type: string
+          description: 사고 레포트 내용입니다.
     UserProfileResponse:
       title: UserProfileResponse
       required:
