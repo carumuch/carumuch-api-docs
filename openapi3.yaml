@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: 🚘 카우머치 Car U Much
   description: 카우머치 서비스의 API 문서입니다.
-  version: 2026.02.18 16:23
+  version: 2026.03.27 03:47
 servers:
 - url: https://hosting-not-yet
 - url: http://localhost:8080
@@ -339,6 +339,119 @@ paths:
                       "message" : "인증번호가 올바르지 않습니다.",
                       "data" : null
                     }
+  /body-shops:
+    post:
+      tags:
+      - Body Shop
+      summary: 공업사 등록
+      description: "## 공업사 등록 기능 \n### 설명 \n- 공업사 사용자로 변환됩니다.\n- 공업사 기본 정보와 위치 정보를\
+        \ 함께 등록합니다.\n- 등록 완료 시 생성된 공업사 식별자를 반환합니다."
+      operationId: 공업사_등록_
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: "#/components/schemas/RegisterBodyShopRequest"
+            examples:
+              공업사_등록_2xx:
+                value: "{\"name\":\"차박고 차량 수리 전문\",\"description\":\"확실하게 처리해드립니다\
+                  .\",\"phoneNumber\":\"000-1234-1234\",\"locationRequest\":{\"sido\"\
+                  :\"서울시\",\"sigungu\":\"송파구\",\"bname\":\"신천동\",\"jibunAddress\"\
+                  :\"서울 송파구 신천동 29-1\",\"roadAddress\":\"서울 송파구 올림픽1로 300\",\"detail\"\
+                  :\"1층\"},\"link\":\"https:test.com\",\"pickupAvailable\":true}"
+              공업사_등록_4xx_사용자를_찾지_못한_경우:
+                value: "{\"name\":\"차박고 차량 수리 전문\",\"description\":\"확실하게 처리해드립니다\
+                  .\",\"phoneNumber\":\"000-1234-1234\",\"locationRequest\":{\"sido\"\
+                  :\"서울시\",\"sigungu\":\"송파구\",\"bname\":\"신천동\",\"jibunAddress\"\
+                  :\"서울 송파구 신천동 29-1\",\"roadAddress\":\"서울 송파구 올림픽1로 300\",\"detail\"\
+                  :\"1층\"},\"link\":\"https:test.com\",\"pickupAvailable\":true}"
+      responses:
+        "201":
+          description: "201"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+              examples:
+                공업사_등록_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
+                      "data" : 1
+                    }
+        "404":
+          description: "404"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                공업사_등록_4xx_사용자를_찾지_못한_경우:
+                  value: |-
+                    {
+                      "message" : "User을(를) 찾을 수 없습니다.",
+                      "data" : null
+                    }
+  /body-shops/{bodyShopId}:
+    put:
+      tags:
+      - Body Shop
+      summary: 공업사 수정
+      description: "## 공업사 수정 기능 \n### 사용법 \n- 공업사 기본 정보와 위치 정보를 수정합니다.\n- 수정 성공 시\
+        \ 별도 데이터 없이 성공 메시지만 반환합니다."
+      operationId: 공업사_수정_
+      parameters:
+      - name: bodyShopId
+        in: path
+        description: ""
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: "#/components/schemas/UpdateBodyShopRequest"
+            examples:
+              공업사_수정_4xx_공업사를_찾지_못한_경우:
+                value: "{\"name\":\"수리수리 차수리\",\"description\":\"수리라면 자신있습니다.\",\"\
+                  phoneNumber\":\"000-2345-2345\",\"locationRequest\":{\"sido\":\"\
+                  서울시\",\"sigungu\":\"송파구\",\"bname\":\"신천동\",\"jibunAddress\":\"서\
+                  울 송파구 신천동 29-2\",\"roadAddress\":\"서울 송파구 올림픽2로 300\",\"detail\"\
+                  :\"2층\"},\"link\":\"https:test2.com\",\"pickupAvailable\":true}"
+              공업사_수정_2xx:
+                value: "{\"name\":\"수리수리 차수리\",\"description\":\"수리라면 자신있습니다.\",\"\
+                  phoneNumber\":\"000-2345-2345\",\"locationRequest\":{\"sido\":\"\
+                  서울시\",\"sigungu\":\"송파구\",\"bname\":\"신천동\",\"jibunAddress\":\"서\
+                  울 송파구 신천동 29-2\",\"roadAddress\":\"서울 송파구 올림픽2로 300\",\"detail\"\
+                  :\"2층\"},\"link\":\"https:test2.com\",\"pickupAvailable\":true}"
+      responses:
+        "404":
+          description: "404"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                공업사_수정_4xx_공업사를_찾지_못한_경우:
+                  value: |-
+                    {
+                      "message" : "BodyShop을(를) 찾을 수 없습니다.",
+                      "data" : null
+                    }
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+              examples:
+                공업사_수정_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
+                      "data" : null
+                    }
   /damage-reports:
     get:
       tags:
@@ -367,7 +480,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.44629798"
+                          "createdAt" : "2026-03-26T18:48:12.005803229"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -375,7 +488,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.44629798"
+                          "createdAt" : "2026-03-26T18:48:12.005803229"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -383,7 +496,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.44629798"
+                          "createdAt" : "2026-03-26T18:48:12.005803229"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -391,7 +504,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.44629798"
+                          "createdAt" : "2026-03-26T18:48:12.005803229"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -399,7 +512,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.44629798"
+                          "createdAt" : "2026-03-26T18:48:12.005803229"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -407,7 +520,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.44629798"
+                          "createdAt" : "2026-03-26T18:48:12.005803229"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -415,7 +528,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.44629798"
+                          "createdAt" : "2026-03-26T18:48:12.005803229"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -423,7 +536,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.44629798"
+                          "createdAt" : "2026-03-26T18:48:12.005803229"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -431,7 +544,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.44629798"
+                          "createdAt" : "2026-03-26T18:48:12.005803229"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -439,7 +552,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.44629798"
+                          "createdAt" : "2026-03-26T18:48:12.005803229"
                         } ],
                         "page" : {
                           "number" : 2,
@@ -463,7 +576,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.608288479"
+                          "createdAt" : "2026-03-26T18:48:12.107351115"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -471,7 +584,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.608288479"
+                          "createdAt" : "2026-03-26T18:48:12.107351115"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -479,7 +592,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.608288479"
+                          "createdAt" : "2026-03-26T18:48:12.107351115"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -487,7 +600,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.608288479"
+                          "createdAt" : "2026-03-26T18:48:12.107351115"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -495,7 +608,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.608288479"
+                          "createdAt" : "2026-03-26T18:48:12.107351115"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -503,7 +616,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.608288479"
+                          "createdAt" : "2026-03-26T18:48:12.107351115"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -511,7 +624,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.608288479"
+                          "createdAt" : "2026-03-26T18:48:12.107351115"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -519,7 +632,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.608288479"
+                          "createdAt" : "2026-03-26T18:48:12.107351115"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -527,7 +640,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.608288479"
+                          "createdAt" : "2026-03-26T18:48:12.107351115"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -535,7 +648,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-02-18T07:24:04.608288479"
+                          "createdAt" : "2026-03-26T18:48:12.107351115"
                         } ],
                         "page" : {
                           "number" : 1,
@@ -622,7 +735,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-02-18T07:24:04.763411916"
+                        "createdAt" : "2026-03-26T18:48:12.209437492"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -630,7 +743,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-02-18T07:24:04.763411916"
+                        "createdAt" : "2026-03-26T18:48:12.209437492"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -638,7 +751,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-02-18T07:24:04.763411916"
+                        "createdAt" : "2026-03-26T18:48:12.209437492"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -646,7 +759,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-02-18T07:24:04.763411916"
+                        "createdAt" : "2026-03-26T18:48:12.209437492"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -654,7 +767,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-02-18T07:24:04.763411916"
+                        "createdAt" : "2026-03-26T18:48:12.209437492"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -662,7 +775,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-02-18T07:24:04.763411916"
+                        "createdAt" : "2026-03-26T18:48:12.209437492"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -670,7 +783,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-02-18T07:24:04.763411916"
+                        "createdAt" : "2026-03-26T18:48:12.209437492"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -678,7 +791,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-02-18T07:24:04.763411916"
+                        "createdAt" : "2026-03-26T18:48:12.209437492"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -686,7 +799,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-02-18T07:24:04.763411916"
+                        "createdAt" : "2026-03-26T18:48:12.209437492"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -694,7 +807,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-02-18T07:24:04.763411916"
+                        "createdAt" : "2026-03-26T18:48:12.209437492"
                       } ]
                     }
   /damage-reports/{damageReportId}:
@@ -777,7 +890,7 @@ paths:
                         "repairParts" : [ "사이드미러 (좌)", "프론트도어 (좌)", "프론트휠 (좌)" ],
                         "estimateStatus" : "OPEN",
                         "imagePath" : "http://test-image1.com",
-                        "createdAt" : "2026-02-18T07:24:06.390226951",
+                        "createdAt" : "2026-03-26T18:48:13.495687977",
                         "vehicleInfo" : {
                           "licenseNumber" : "11가1111",
                           "ownershipType" : "PERSONAL",
@@ -902,7 +1015,7 @@ paths:
                           "repairParts" : [ "사이드미러 (좌)", "프론트도어 (좌)", "프론트휠 (좌)" ],
                           "estimateStatus" : "OPEN",
                           "imagePath" : "http://test-image1.com",
-                          "createdAt" : "2026-02-18T07:24:06.104055803",
+                          "createdAt" : "2026-03-26T18:48:13.216899508",
                           "vehicleInfo" : {
                             "licenseNumber" : "11가1111",
                             "ownershipType" : "PERSONAL",
@@ -923,7 +1036,7 @@ paths:
                           "repairParts" : [ "백도어 (우)", "백휠 (우)", "사이드미러 (좌)" ],
                           "estimateStatus" : "OPEN",
                           "imagePath" : "http://test-image4.com",
-                          "createdAt" : "2026-02-18T07:24:06.104170936",
+                          "createdAt" : "2026-03-26T18:48:13.216998867",
                           "vehicleInfo" : {
                             "licenseNumber" : "11가1111",
                             "ownershipType" : "PERSONAL",
@@ -994,7 +1107,7 @@ paths:
                         "repairParts" : [ "사이드미러 (좌)", "프론트도어 (좌)", "프론트휠 (좌)" ],
                         "estimateStatus" : "OPEN",
                         "imagePath" : "http://test-image1.com",
-                        "createdAt" : "2026-02-18T07:24:06.474602814",
+                        "createdAt" : "2026-03-26T18:48:13.605752667",
                         "vehicleInfo" : {
                           "licenseNumber" : "11가1111",
                           "ownershipType" : "PERSONAL",
@@ -1765,15 +1878,6 @@ components:
         newPassword:
           type: string
           description: 새로운 비밀번호입니다.
-    RetrieveLoginIdRequest:
-      title: RetrieveLoginIdRequest
-      required:
-      - email
-      type: object
-      properties:
-        email:
-          type: string
-          description: 아이디를 전송할 이메일입니다.
     UpdateEstimateStatusRequest:
       title: UpdateEstimateStatusRequest
       required:
@@ -1783,27 +1887,6 @@ components:
         status:
           type: string
           description: "변경할 견적서의 상태입니다. (PRIVATE, OPEN 중에 선택해야합니다.)"
-    PublicUserProfileResponse:
-      title: PublicUserProfileResponse
-      required:
-      - message
-      type: object
-      properties:
-        data:
-          required:
-          - email
-          - name
-          type: object
-          properties:
-            name:
-              type: string
-              description: 사용자 이름입니다.
-            email:
-              type: string
-              description: 사용자 이메일입니다.
-        message:
-          type: string
-          description: 성공 응답 메세지입니다.
     RegisterUserRequest:
       title: RegisterUserRequest
       required:
@@ -1825,19 +1908,59 @@ components:
         email:
           type: string
           description: 이메일 형식을 지켜주세요.
-    VerifyPasswordCodeRequest:
-      title: VerifyPasswordCodeRequest
+    RegisterBodyShopRequest:
+      title: RegisterBodyShopRequest
       required:
-      - code
-      - loginId
+      - description
+      - link
+      - name
+      - phoneNumber
+      - pickupAvailable
       type: object
       properties:
-        code:
+        pickupAvailable:
+          type: boolean
+          description: 차량 픽업 가능 여부입니다.
+        locationRequest:
+          required:
+          - bname
+          - detail
+          - jibunAddress
+          - roadAddress
+          - sido
+          - sigungu
+          type: object
+          properties:
+            sigungu:
+              type: string
+              description: 공업사 소재지 시/군/구입니다.
+            sido:
+              type: string
+              description: 공업사 소재지 시/도입니다.
+            bname:
+              type: string
+              description: 공업사 소재지 법정동명입니다.
+            roadAddress:
+              type: string
+              description: 공업사 도로명 주소입니다.
+            jibunAddress:
+              type: string
+              description: 공업사 지번 주소입니다.
+            detail:
+              type: string
+              description: 공업사 상세 주소입니다.
+        phoneNumber:
           type: string
-          description: 비밀번호 찾기를 통해 얻은 인증번호입니다.
-        loginId:
+          description: 공업사 연락처입니다.
+        link:
           type: string
-          description: 사용자의 아이디입니다.
+          description: 공업사 관련 링크입니다.
+        name:
+          type: string
+          description: 공업사 이름입니다.
+        description:
+          type: string
+          description: 공업사 소개입니다.
     DamageReportInfoResponse:
       title: DamageReportInfoResponse
       required:
@@ -1939,6 +2062,239 @@ components:
         brand:
           type: string
           description: 차량 브렌드 입니다.
+    UpdateBodyShopRequest:
+      title: UpdateBodyShopRequest
+      required:
+      - description
+      - link
+      - name
+      - phoneNumber
+      - pickupAvailable
+      type: object
+      properties:
+        pickupAvailable:
+          type: boolean
+          description: 차량 픽업 가능 여부입니다.
+        locationRequest:
+          required:
+          - bname
+          - detail
+          - jibunAddress
+          - roadAddress
+          - sido
+          - sigungu
+          type: object
+          properties:
+            sigungu:
+              type: string
+              description: 공업사 소재지 시/군/구입니다.
+            sido:
+              type: string
+              description: 공업사 소재지 시/도입니다.
+            bname:
+              type: string
+              description: 공업사 소재지 법정동명입니다.
+            roadAddress:
+              type: string
+              description: 공업사 도로명 주소입니다.
+            jibunAddress:
+              type: string
+              description: 공업사 지번 주소입니다.
+            detail:
+              type: string
+              description: 공업사 상세 주소입니다.
+        phoneNumber:
+          type: string
+          description: 공업사 연락처입니다.
+        link:
+          type: string
+          description: 공업사 관련 링크입니다.
+        name:
+          type: string
+          description: 공업사 이름입니다.
+        description:
+          type: string
+          description: 공업사 소개입니다.
+    UpdateDamageReportRequest:
+      title: UpdateDamageReportRequest
+      required:
+      - description
+      - isPickupRequired
+      - preferredRepairSido
+      - preferredRepairSigungu
+      type: object
+      properties:
+        preferredRepairSido:
+          type: string
+          description: 사고 수리 희망 지역 시/도 입니다.
+        isPickupRequired:
+          type: boolean
+          description: 사고 처리 시 차량 픽업 희망 여부 입니다.
+        preferredRepairSigungu:
+          type: string
+          description: 사고 수리 희망 지역 시/군/구 입니다.
+        description:
+          type: string
+          description: 사고 레포트 내용입니다.
+    EstimateDetailResponse:
+      title: EstimateDetailResponse
+      required:
+      - message
+      type: object
+      properties:
+        data:
+          required:
+          - createdAt
+          - estimateId
+          - estimateStatus
+          - imagePath
+          - repairCost
+          - repairParts
+          type: object
+          properties:
+            damageReportInfo:
+              required:
+              - description
+              - isPickupRequired
+              - preferredRepairSido
+              - preferredRepairSigungu
+              type: object
+              properties:
+                preferredRepairSido:
+                  type: string
+                  description: 수리 희망 시/도 입니다.
+                isPickupRequired:
+                  type: boolean
+                  description: 사고 수리 픽업 희망 유무입니다.
+                preferredRepairSigungu:
+                  type: string
+                  description: 수리 희망 시/군/구 입니다.
+                description:
+                  type: string
+                  description: 사용자가 기술한 사고 레포트의 내용입니다.
+            createdAt:
+              type: string
+              description: 견적서 생성일 입니다.
+            imagePath:
+              type: string
+              description: 견적서의 사고 분석 사진 주소입니다.
+            estimateStatus:
+              type: string
+              description: 견적서의 상태입니다.
+            vehicleInfo:
+              required:
+              - brand
+              - licenseNumber
+              - modelName
+              - modelYear
+              - ownerName
+              - ownershipType
+              type: object
+              properties:
+                ownershipType:
+                  type: string
+                  description: 차량의 유형입니다.
+                modelName:
+                  type: string
+                  description: 차량의 모델명입니다.
+                ownerName:
+                  type: string
+                  description: 차량의 실소유자명입니다.
+                licenseNumber:
+                  type: string
+                  description: 차량의 번호입니다.
+                modelYear:
+                  type: number
+                  description: 차량의 연입니다.
+                brand:
+                  type: string
+                  description: 차량의 브랜드입니다.
+            estimateId:
+              type: number
+              description: 견적서 식별자입니다.
+            repairParts:
+              type: array
+              description: 사고 수리 예상 부위입니다.
+              items:
+                oneOf:
+                - type: object
+                - type: boolean
+                - type: string
+                - type: number
+            repairCost:
+              type: number
+              description: 사고 견적 분석 금액입니다.
+        message:
+          type: string
+          description: 성공 응답 메세지입니다.
+    UserProfileResponse:
+      title: UserProfileResponse
+      required:
+      - message
+      type: object
+      properties:
+        data:
+          required:
+          - email
+          - loginId
+          - name
+          type: object
+          properties:
+            loginId:
+              type: string
+              description: 사용자 아이디입니다.
+            name:
+              type: string
+              description: 사용자 이름입니다.
+            email:
+              type: string
+              description: 사용자 이메일입니다.
+        message:
+          type: string
+          description: 성공 응답 메세지입니다.
+    RetrieveLoginIdRequest:
+      title: RetrieveLoginIdRequest
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          type: string
+          description: 아이디를 전송할 이메일입니다.
+    PublicUserProfileResponse:
+      title: PublicUserProfileResponse
+      required:
+      - message
+      type: object
+      properties:
+        data:
+          required:
+          - email
+          - name
+          type: object
+          properties:
+            name:
+              type: string
+              description: 사용자 이름입니다.
+            email:
+              type: string
+              description: 사용자 이메일입니다.
+        message:
+          type: string
+          description: 성공 응답 메세지입니다.
+    VerifyPasswordCodeRequest:
+      title: VerifyPasswordCodeRequest
+      required:
+      - code
+      - loginId
+      type: object
+      properties:
+        code:
+          type: string
+          description: 비밀번호 찾기를 통해 얻은 인증번호입니다.
+        loginId:
+          type: string
+          description: 사용자의 아이디입니다.
     AuthenticateUserRequest:
       title: AuthenticateUserRequest
       required:
@@ -2203,143 +2559,6 @@ components:
         email:
           type: string
           description: 사용자의 이메일입니다.
-    UpdateDamageReportRequest:
-      title: UpdateDamageReportRequest
-      required:
-      - description
-      - isPickupRequired
-      - preferredRepairSido
-      - preferredRepairSigungu
-      type: object
-      properties:
-        preferredRepairSido:
-          type: string
-          description: 사고 수리 희망 지역 시/도 입니다.
-        isPickupRequired:
-          type: boolean
-          description: 사고 처리 시 차량 픽업 희망 여부 입니다.
-        preferredRepairSigungu:
-          type: string
-          description: 사고 수리 희망 지역 시/군/구 입니다.
-        description:
-          type: string
-          description: 사고 레포트 내용입니다.
-    EstimateDetailResponse:
-      title: EstimateDetailResponse
-      required:
-      - message
-      type: object
-      properties:
-        data:
-          required:
-          - createdAt
-          - estimateId
-          - estimateStatus
-          - imagePath
-          - repairCost
-          - repairParts
-          type: object
-          properties:
-            damageReportInfo:
-              required:
-              - description
-              - isPickupRequired
-              - preferredRepairSido
-              - preferredRepairSigungu
-              type: object
-              properties:
-                preferredRepairSido:
-                  type: string
-                  description: 수리 희망 시/도 입니다.
-                isPickupRequired:
-                  type: boolean
-                  description: 사고 수리 픽업 희망 유무입니다.
-                preferredRepairSigungu:
-                  type: string
-                  description: 수리 희망 시/군/구 입니다.
-                description:
-                  type: string
-                  description: 사용자가 기술한 사고 레포트의 내용입니다.
-            createdAt:
-              type: string
-              description: 견적서 생성일 입니다.
-            imagePath:
-              type: string
-              description: 견적서의 사고 분석 사진 주소입니다.
-            estimateStatus:
-              type: string
-              description: 견적서의 상태입니다.
-            vehicleInfo:
-              required:
-              - brand
-              - licenseNumber
-              - modelName
-              - modelYear
-              - ownerName
-              - ownershipType
-              type: object
-              properties:
-                ownershipType:
-                  type: string
-                  description: 차량의 유형입니다.
-                modelName:
-                  type: string
-                  description: 차량의 모델명입니다.
-                ownerName:
-                  type: string
-                  description: 차량의 실소유자명입니다.
-                licenseNumber:
-                  type: string
-                  description: 차량의 번호입니다.
-                modelYear:
-                  type: number
-                  description: 차량의 연입니다.
-                brand:
-                  type: string
-                  description: 차량의 브랜드입니다.
-            estimateId:
-              type: number
-              description: 견적서 식별자입니다.
-            repairParts:
-              type: array
-              description: 사고 수리 예상 부위입니다.
-              items:
-                oneOf:
-                - type: object
-                - type: boolean
-                - type: string
-                - type: number
-            repairCost:
-              type: number
-              description: 사고 견적 분석 금액입니다.
-        message:
-          type: string
-          description: 성공 응답 메세지입니다.
-    UserProfileResponse:
-      title: UserProfileResponse
-      required:
-      - message
-      type: object
-      properties:
-        data:
-          required:
-          - email
-          - loginId
-          - name
-          type: object
-          properties:
-            loginId:
-              type: string
-              description: 사용자 아이디입니다.
-            name:
-              type: string
-              description: 사용자 이름입니다.
-            email:
-              type: string
-              description: 사용자 이메일입니다.
-        message:
-          type: string
-          description: 성공 응답 메세지입니다.
     ApiErrorResponse:
       title: ApiErrorResponse
       type: object
