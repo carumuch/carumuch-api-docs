@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: 🚘 카우머치 Car U Much
   description: 카우머치 서비스의 API 문서입니다.
-  version: 2026.05.13 01:38
+  version: 2026.05.16 02:03
 servers:
 - url: https://hosting-not-yet
 - url: http://localhost:8080
@@ -24,14 +24,14 @@ paths:
             schema:
               $ref: "#/components/schemas/AuthenticateUserRequest"
             examples:
+              로그인_4xx_비밀번호가_올바르지_않음:
+                value: "{\"loginId\":\"test1\",\"password\":\"wrong1234@\"}"
               로그인_4xx_요청_데이터_유효성_검사_실패:
                 value: "{\"loginId\":\"test1\",\"password\":\"1234\"}"
               로그인_4xx_아이디_존재하지_않음:
                 value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\"}"
               로그인_2xx:
                 value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\"}"
-              로그인_4xx_비밀번호가_올바르지_않음:
-                value: "{\"loginId\":\"test1\",\"password\":\"wrong1234@\"}"
       responses:
         "400":
           description: "400"
@@ -40,6 +40,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiErrorResponse"
               examples:
+                로그인_4xx_비밀번호가_올바르지_않음:
+                  value: |-
+                    {
+                      "message" : "아이디 혹은 비밀번호가 일치하지 않습니다.",
+                      "data" : null
+                    }
                 로그인_4xx_요청_데이터_유효성_검사_실패:
                   value: |-
                     {
@@ -47,12 +53,6 @@ paths:
                       "data" : null
                     }
                 로그인_4xx_아이디_존재하지_않음:
-                  value: |-
-                    {
-                      "message" : "아이디 혹은 비밀번호가 일치하지 않습니다.",
-                      "data" : null
-                    }
-                로그인_4xx_비밀번호가_올바르지_않음:
                   value: |-
                     {
                       "message" : "아이디 혹은 비밀번호가 일치하지 않습니다.",
@@ -122,16 +122,16 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiErrorResponse"
               examples:
-                토큰_재발급_4xx_재발급_토큰_쿠키가_전송되지_않음:
-                  value: |-
-                    {
-                      "message" : "쿠키가 유효하지 않습니다.",
-                      "data" : null
-                    }
                 토큰_재발급_4xx_서버의_정보와_요청_재발급_토큰이_다른_경우:
                   value: |-
                     {
                       "message" : "토큰이 유효하지 않습니다.",
+                      "data" : null
+                    }
+                토큰_재발급_4xx_재발급_토큰_쿠키가_전송되지_않음:
+                  value: |-
+                    {
+                      "message" : "쿠키가 유효하지 않습니다.",
                       "data" : null
                     }
                 토큰_재발급_4xx_재발급_토큰이_서버에_존재하지_않은_경우:
@@ -216,24 +216,11 @@ paths:
             schema:
               $ref: "#/components/schemas/RetrievePasswordRequest"
             examples:
-              비밀번호_찾기_2xx:
-                value: "{\"loginId\":\"test1\",\"email\":\"test1@gmail.com\"}"
               비밀번호_찾기_4xx_데이터에_해당하는_사용자가_없는_경우:
                 value: "{\"loginId\":\"test1\",\"email\":\"test1@gmail.com\"}"
+              비밀번호_찾기_2xx:
+                value: "{\"loginId\":\"test1\",\"email\":\"test1@gmail.com\"}"
       responses:
-        "200":
-          description: "200"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-              examples:
-                비밀번호_찾기_2xx:
-                  value: |-
-                    {
-                      "message" : "OK",
-                      "data" : null
-                    }
         "404":
           description: "404"
           content:
@@ -245,6 +232,19 @@ paths:
                   value: |-
                     {
                       "message" : "User을(를) 찾을 수 없습니다.",
+                      "data" : null
+                    }
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+              examples:
+                비밀번호_찾기_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
                       "data" : null
                     }
   /auth/password/reset:
@@ -304,26 +304,13 @@ paths:
         content:
           application/json;charset=UTF-8:
             schema:
-              $ref: "#/components/schemas/auth-password-verify901416538"
+              $ref: "#/components/schemas/VerifyPasswordCodeRequest"
             examples:
-              인증번호_검증_4xx_인증번호가_올바르지_않은_경우:
-                value: "{\"loginId\":\"test1\",\"code\":\"654321\"}"
               인증번호_검증_2xx:
                 value: "{\"loginId\":\"test1\",\"code\":\"123456\"}"
+              인증번호_검증_4xx_인증번호가_올바르지_않은_경우:
+                value: "{\"loginId\":\"test1\",\"code\":\"654321\"}"
       responses:
-        "400":
-          description: "400"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiErrorResponse"
-              examples:
-                인증번호_검증_4xx_인증번호가_올바르지_않은_경우:
-                  value: |-
-                    {
-                      "message" : "인증번호가 올바르지 않습니다.",
-                      "data" : null
-                    }
         "200":
           description: "200"
           content:
@@ -338,6 +325,19 @@ paths:
                       "data" : {
                         "token" : "testToken"
                       }
+                    }
+        "400":
+          description: "400"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                인증번호_검증_4xx_인증번호가_올바르지_않은_경우:
+                  value: |-
+                    {
+                      "message" : "인증번호가 올바르지 않습니다.",
+                      "data" : null
                     }
   /body-shops:
     post:
@@ -536,7 +536,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.795101463"
+                          "createdAt" : "2026-05-15T17:04:14.319150903"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -544,7 +544,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.795101463"
+                          "createdAt" : "2026-05-15T17:04:14.319150903"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -552,7 +552,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.795101463"
+                          "createdAt" : "2026-05-15T17:04:14.319150903"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -560,7 +560,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.795101463"
+                          "createdAt" : "2026-05-15T17:04:14.319150903"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -568,7 +568,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.795101463"
+                          "createdAt" : "2026-05-15T17:04:14.319150903"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -576,7 +576,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.795101463"
+                          "createdAt" : "2026-05-15T17:04:14.319150903"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -584,7 +584,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.795101463"
+                          "createdAt" : "2026-05-15T17:04:14.319150903"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -592,7 +592,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.795101463"
+                          "createdAt" : "2026-05-15T17:04:14.319150903"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -600,7 +600,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.795101463"
+                          "createdAt" : "2026-05-15T17:04:14.319150903"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -608,7 +608,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.795101463"
+                          "createdAt" : "2026-05-15T17:04:14.319150903"
                         } ],
                         "page" : {
                           "number" : 2,
@@ -632,7 +632,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.888610434"
+                          "createdAt" : "2026-05-15T17:04:14.416734778"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -640,7 +640,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.888610434"
+                          "createdAt" : "2026-05-15T17:04:14.416734778"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -648,7 +648,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.888610434"
+                          "createdAt" : "2026-05-15T17:04:14.416734778"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -656,7 +656,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.888610434"
+                          "createdAt" : "2026-05-15T17:04:14.416734778"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -664,7 +664,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.888610434"
+                          "createdAt" : "2026-05-15T17:04:14.416734778"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -672,7 +672,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.888610434"
+                          "createdAt" : "2026-05-15T17:04:14.416734778"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -680,7 +680,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.888610434"
+                          "createdAt" : "2026-05-15T17:04:14.416734778"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -688,7 +688,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.888610434"
+                          "createdAt" : "2026-05-15T17:04:14.416734778"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -696,7 +696,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.888610434"
+                          "createdAt" : "2026-05-15T17:04:14.416734778"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -704,7 +704,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-05-12T16:39:23.888610434"
+                          "createdAt" : "2026-05-15T17:04:14.416734778"
                         } ],
                         "page" : {
                           "number" : 1,
@@ -729,28 +729,15 @@ paths:
             schema:
               $ref: "#/components/schemas/RegisterDamageReportRequest"
             examples:
-              사고_레포트_등록_2xx:
-                value: "{\"description\":\"소화전을 박았습니다.\",\"preferredRepairSido\":\"\
-                  서울시\",\"preferredRepairSigungu\":\"송파구\",\"isPickupRequired\":false,\"\
-                  imagePath\":\"http://s3.image.test1\"}"
               사고_레포트_등록_4xx_등록된_차량이_없는_경우:
                 value: "{\"description\":\"소화전을 박았습니다.\",\"preferredRepairSido\":\"\
                   서울시\",\"preferredRepairSigungu\":\"송파구\",\"isPickupRequired\":false,\"\
                   imagePath\":\"http://s3.image.test1\"}"
+              사고_레포트_등록_2xx:
+                value: "{\"description\":\"소화전을 박았습니다.\",\"preferredRepairSido\":\"\
+                  서울시\",\"preferredRepairSigungu\":\"송파구\",\"isPickupRequired\":false,\"\
+                  imagePath\":\"http://s3.image.test1\"}"
       responses:
-        "200":
-          description: "200"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-              examples:
-                사고_레포트_등록_2xx:
-                  value: |-
-                    {
-                      "message" : "OK",
-                      "data" : 1
-                    }
         "404":
           description: "404"
           content:
@@ -763,6 +750,19 @@ paths:
                     {
                       "message" : "Vehicle을(를) 찾을 수 없습니다.",
                       "data" : null
+                    }
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+              examples:
+                사고_레포트_등록_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
+                      "data" : 1
                     }
   /damage-reports/recent:
     get:
@@ -791,7 +791,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-05-12T16:39:23.982041566"
+                        "createdAt" : "2026-05-15T17:04:14.504901196"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -799,7 +799,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-05-12T16:39:23.982041566"
+                        "createdAt" : "2026-05-15T17:04:14.504901196"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -807,7 +807,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-05-12T16:39:23.982041566"
+                        "createdAt" : "2026-05-15T17:04:14.504901196"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -815,7 +815,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-05-12T16:39:23.982041566"
+                        "createdAt" : "2026-05-15T17:04:14.504901196"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -823,7 +823,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-05-12T16:39:23.982041566"
+                        "createdAt" : "2026-05-15T17:04:14.504901196"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -831,7 +831,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-05-12T16:39:23.982041566"
+                        "createdAt" : "2026-05-15T17:04:14.504901196"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -839,7 +839,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-05-12T16:39:23.982041566"
+                        "createdAt" : "2026-05-15T17:04:14.504901196"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -847,7 +847,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-05-12T16:39:23.982041566"
+                        "createdAt" : "2026-05-15T17:04:14.504901196"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -855,7 +855,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-05-12T16:39:23.982041566"
+                        "createdAt" : "2026-05-15T17:04:14.504901196"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -863,7 +863,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-05-12T16:39:23.982041566"
+                        "createdAt" : "2026-05-15T17:04:14.504901196"
                       } ]
                     }
   /damage-reports/{damageReportId}:
@@ -887,26 +887,13 @@ paths:
             schema:
               $ref: "#/components/schemas/UpdateDamageReportRequest"
             examples:
-              사고_레포트_수정_4xx_등록된_사고_레포트가_없는_경우:
-                value: "{\"description\":\"소화전을 박았습니다.\",\"preferredRepairSido\":\"\
-                  서울시\",\"preferredRepairSigungu\":\"송파구\",\"isPickupRequired\":false}"
               사고_레포트_수정_2xx:
                 value: "{\"description\":\"소화전을 박았습니다.\",\"preferredRepairSido\":\"\
                   서울시\",\"preferredRepairSigungu\":\"송파구\",\"isPickupRequired\":false}"
+              사고_레포트_수정_4xx_등록된_사고_레포트가_없는_경우:
+                value: "{\"description\":\"소화전을 박았습니다.\",\"preferredRepairSido\":\"\
+                  서울시\",\"preferredRepairSigungu\":\"송파구\",\"isPickupRequired\":false}"
       responses:
-        "404":
-          description: "404"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiErrorResponse"
-              examples:
-                사고_레포트_수정_4xx_등록된_사고_레포트가_없는_경우:
-                  value: |-
-                    {
-                      "message" : "DamageReport을(를) 찾을 수 없습니다.",
-                      "data" : null
-                    }
         "200":
           description: "200"
           content:
@@ -918,6 +905,19 @@ paths:
                   value: |-
                     {
                       "message" : "OK",
+                      "data" : null
+                    }
+        "404":
+          description: "404"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                사고_레포트_수정_4xx_등록된_사고_레포트가_없는_경우:
+                  value: |-
+                    {
+                      "message" : "DamageReport을(를) 찾을 수 없습니다.",
                       "data" : null
                     }
   /estimates:
@@ -946,7 +946,7 @@ paths:
                         "repairParts" : [ "사이드미러 (좌)", "프론트도어 (좌)", "프론트휠 (좌)" ],
                         "estimateStatus" : "OPEN",
                         "imagePath" : "http://test-image1.com",
-                        "createdAt" : "2026-05-12T16:39:25.158180015",
+                        "createdAt" : "2026-05-15T17:04:15.733468771",
                         "vehicleInfo" : {
                           "licenseNumber" : "11가1111",
                           "ownershipType" : "PERSONAL",
@@ -1071,7 +1071,7 @@ paths:
                           "repairParts" : [ "사이드미러 (좌)", "프론트도어 (좌)", "프론트휠 (좌)" ],
                           "estimateStatus" : "OPEN",
                           "imagePath" : "http://test-image1.com",
-                          "createdAt" : "2026-05-12T16:39:24.886950339",
+                          "createdAt" : "2026-05-15T17:04:15.464475142",
                           "vehicleInfo" : {
                             "licenseNumber" : "11가1111",
                             "ownershipType" : "PERSONAL",
@@ -1092,7 +1092,7 @@ paths:
                           "repairParts" : [ "백도어 (우)", "백휠 (우)", "사이드미러 (좌)" ],
                           "estimateStatus" : "OPEN",
                           "imagePath" : "http://test-image4.com",
-                          "createdAt" : "2026-05-12T16:39:24.887037803",
+                          "createdAt" : "2026-05-15T17:04:15.464568182",
                           "vehicleInfo" : {
                             "licenseNumber" : "11가1111",
                             "ownershipType" : "PERSONAL",
@@ -1133,6 +1133,19 @@ paths:
         schema:
           type: string
       responses:
+        "404":
+          description: "404"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                견적서_상세_조회_4xx_견적서를_찾지_못한_경우:
+                  value: |-
+                    {
+                      "message" : "Estimate을(를) 찾을 수 없습니다.",
+                      "data" : null
+                    }
         "200":
           description: "200"
           content:
@@ -1150,7 +1163,7 @@ paths:
                         "repairParts" : [ "사이드미러 (좌)", "프론트도어 (좌)", "프론트휠 (좌)" ],
                         "estimateStatus" : "OPEN",
                         "imagePath" : "http://test-image1.com",
-                        "createdAt" : "2026-05-12T16:39:25.241525661",
+                        "createdAt" : "2026-05-15T17:04:15.816560289",
                         "vehicleInfo" : {
                           "licenseNumber" : "11가1111",
                           "ownershipType" : "PERSONAL",
@@ -1166,19 +1179,6 @@ paths:
                           "isPickupRequired" : false
                         }
                       }
-                    }
-        "404":
-          description: "404"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiErrorResponse"
-              examples:
-                견적서_상세_조회_4xx_견적서를_찾지_못한_경우:
-                  value: |-
-                    {
-                      "message" : "Estimate을(를) 찾을 수 없습니다.",
-                      "data" : null
                     }
   /estimates/{estimateId}/status:
     put:
@@ -1201,32 +1201,26 @@ paths:
             schema:
               $ref: "#/components/schemas/UpdateEstimateStatusRequest"
             examples:
-              견적서_상태_변경_기능_4xx_이미_매칭_완료된_견적서인_경우:
-                value: "{\"status\":\"OPEN\"}"
+              견적서_상태_변경_기능_4xx_견적서를_찾을_수_없는_경우:
+                value: "{\"status\":\"PRIVATE\"}"
               견적서_상태_변경_기능_2xx:
                 value: "{\"status\":\"PRIVATE\"}"
               견적서_상태_변경_기능_4xx_수용할_수_없는_견적서_상태인_경우:
                 value: "{\"status\":\"wrongStatus\"}"
-              견적서_상태_변경_기능_4xx_견적서를_찾을_수_없는_경우:
-                value: "{\"status\":\"PRIVATE\"}"
+              견적서_상태_변경_기능_4xx_이미_매칭_완료된_견적서인_경우:
+                value: "{\"status\":\"OPEN\"}"
       responses:
-        "400":
-          description: "400"
+        "404":
+          description: "404"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiErrorResponse"
               examples:
-                견적서_상태_변경_기능_4xx_이미_매칭_완료된_견적서인_경우:
+                견적서_상태_변경_기능_4xx_견적서를_찾을_수_없는_경우:
                   value: |-
                     {
-                      "message" : "이미 매칭된 견적서 입니다.",
-                      "data" : null
-                    }
-                견적서_상태_변경_기능_4xx_수용할_수_없는_견적서_상태인_경우:
-                  value: |-
-                    {
-                      "message" : "올바른 견적서 상태가 아닙니다.",
+                      "message" : "Estimate을(를) 찾을 수 없습니다.",
                       "data" : null
                     }
         "200":
@@ -1242,17 +1236,23 @@ paths:
                       "message" : "OK",
                       "data" : null
                     }
-        "404":
-          description: "404"
+        "400":
+          description: "400"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiErrorResponse"
               examples:
-                견적서_상태_변경_기능_4xx_견적서를_찾을_수_없는_경우:
+                견적서_상태_변경_기능_4xx_수용할_수_없는_견적서_상태인_경우:
                   value: |-
                     {
-                      "message" : "Estimate을(를) 찾을 수 없습니다.",
+                      "message" : "올바른 견적서 상태가 아닙니다.",
+                      "data" : null
+                    }
+                견적서_상태_변경_기능_4xx_이미_매칭_완료된_견적서인_경우:
+                  value: |-
+                    {
+                      "message" : "이미 매칭된 견적서 입니다.",
                       "data" : null
                     }
   /health:
@@ -1344,24 +1344,11 @@ paths:
             schema:
               $ref: "#/components/schemas/UpdateUserRequest"
             examples:
-              회원_정보_업데이트_4xx_요청_데이터_유효성_검사_실패:
-                value: "{\"name\":\"\"}"
               회원_정보_업데이트_2xx:
                 value: "{\"name\":\"이름바꾸기\"}"
+              회원_정보_업데이트_4xx_요청_데이터_유효성_검사_실패:
+                value: "{\"name\":\"\"}"
       responses:
-        "400":
-          description: "400"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiErrorResponse"
-              examples:
-                회원_정보_업데이트_4xx_요청_데이터_유효성_검사_실패:
-                  value: |-
-                    {
-                      "message" : "name의 필드 값 유효하지 않습니다.",
-                      "data" : null
-                    }
         "200":
           description: "200"
           content:
@@ -1374,6 +1361,19 @@ paths:
                     {
                       "message" : "OK",
                       "data" : 1
+                    }
+        "400":
+          description: "400"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                회원_정보_업데이트_4xx_요청_데이터_유효성_검사_실패:
+                  value: |-
+                    {
+                      "message" : "name의 필드 값 유효하지 않습니다.",
+                      "data" : null
                     }
     post:
       tags:
@@ -1388,32 +1388,19 @@ paths:
             schema:
               $ref: "#/components/schemas/RegisterUserRequest"
             examples:
-              회원가입_2xx:
-                value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\",\"email\"\
-                  :\"test1@gmail.com\",\"name\":\"홍길동\"}"
-              회원가입_4xx_아이디_중복:
-                value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\",\"email\"\
-                  :\"test1@gmail.com\",\"name\":\"홍길동\"}"
               회원가입_4xx_이메일_중복:
                 value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\",\"email\"\
                   :\"test1@gmail.com\",\"name\":\"홍길동\"}"
               회원가입_4xx_요청_데이터_유효성_검사_실패:
                 value: "{\"loginId\":\"test1\",\"password\":\"1234\",\"email\":\"\
                   test1@gmail.com\",\"name\":\"홍길동\"}"
+              회원가입_2xx:
+                value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\",\"email\"\
+                  :\"test1@gmail.com\",\"name\":\"홍길동\"}"
+              회원가입_4xx_아이디_중복:
+                value: "{\"loginId\":\"test1\",\"password\":\"test1@1234\",\"email\"\
+                  :\"test1@gmail.com\",\"name\":\"홍길동\"}"
       responses:
-        "200":
-          description: "200"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-              examples:
-                회원가입_2xx:
-                  value: |-
-                    {
-                      "message" : "OK",
-                      "data" : 0
-                    }
         "409":
           description: "409"
           content:
@@ -1421,16 +1408,16 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiErrorResponse"
               examples:
-                회원가입_4xx_아이디_중복:
-                  value: |-
-                    {
-                      "message" : "이미 사용 중인 아이디입니다.",
-                      "data" : null
-                    }
                 회원가입_4xx_이메일_중복:
                   value: |-
                     {
                       "message" : "이미 사용 중인 이메일입니다.",
+                      "data" : null
+                    }
+                회원가입_4xx_아이디_중복:
+                  value: |-
+                    {
+                      "message" : "이미 사용 중인 아이디입니다.",
                       "data" : null
                     }
         "400":
@@ -1445,6 +1432,19 @@ paths:
                     {
                       "message" : "password의 필드 값 유효하지 않습니다.",
                       "data" : null
+                    }
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+              examples:
+                회원가입_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
+                      "data" : 0
                     }
     delete:
       tags:
@@ -1487,11 +1487,11 @@ paths:
               비밀번호_업데이트_2xx:
                 value: "{\"password\":\"test1@1234\",\"newPassword\":\"newPassword1234@\"\
                   }"
+              비밀번호_업데이트_4xx_요청_데이터_유효성_검사_실패:
+                value: "{\"password\":\"test1@1234\",\"newPassword\":\"1234\"}"
               비밀번호_업데이트_4xx_기존_비밀번호가_올바르지_않음:
                 value: "{\"password\":\"test1@1234\",\"newPassword\":\"newPassword1234@\"\
                   }"
-              비밀번호_업데이트_4xx_요청_데이터_유효성_검사_실패:
-                value: "{\"password\":\"test1@1234\",\"newPassword\":\"1234\"}"
       responses:
         "200":
           description: "200"
@@ -1513,16 +1513,16 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiErrorResponse"
               examples:
-                비밀번호_업데이트_4xx_기존_비밀번호가_올바르지_않음:
-                  value: |-
-                    {
-                      "message" : "비밀번호가 일치하지 않습니다.",
-                      "data" : null
-                    }
                 비밀번호_업데이트_4xx_요청_데이터_유효성_검사_실패:
                   value: |-
                     {
                       "message" : "newPassword의 필드 값 유효하지 않습니다.",
+                      "data" : null
+                    }
+                비밀번호_업데이트_4xx_기존_비밀번호가_올바르지_않음:
+                  value: |-
+                    {
+                      "message" : "비밀번호가 일치하지 않습니다.",
                       "data" : null
                     }
   /users/profile:
@@ -1610,19 +1610,6 @@ paths:
         schema:
           type: string
       responses:
-        "409":
-          description: "409"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiErrorResponse"
-              examples:
-                이메일_중복_체크_4xx_email_중복:
-                  value: |-
-                    {
-                      "message" : "이미 사용 중인 이메일입니다.",
-                      "data" : null
-                    }
         "200":
           description: "200"
           content:
@@ -1634,6 +1621,19 @@ paths:
                   value: |-
                     {
                       "message" : "OK",
+                      "data" : null
+                    }
+        "409":
+          description: "409"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                이메일_중복_체크_4xx_email_중복:
+                  value: |-
+                    {
+                      "message" : "이미 사용 중인 이메일입니다.",
                       "data" : null
                     }
   /users/login-id/exists:
@@ -1686,6 +1686,19 @@ paths:
       description: "## 차량 정보 조회 기능 \n### 설명 \n- 사용자가 등록한 차량의 정보를 조회합니다.\n"
       operationId: 차량_정보_조회_
       responses:
+        "404":
+          description: "404"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                차량_정보_조회_4xx_등록된_차량이_없는_경우:
+                  value: |-
+                    {
+                      "message" : "Vehicle을(를) 찾을 수 없습니다.",
+                      "data" : null
+                    }
         "200":
           description: "200"
           content:
@@ -1707,19 +1720,6 @@ paths:
                         "ownerName" : "홍길동"
                       }
                     }
-        "404":
-          description: "404"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiErrorResponse"
-              examples:
-                차량_정보_조회_4xx_등록된_차량이_없는_경우:
-                  value: |-
-                    {
-                      "message" : "Vehicle을(를) 찾을 수 없습니다.",
-                      "data" : null
-                    }
     put:
       tags:
       - Damage - Vehicle
@@ -1732,14 +1732,6 @@ paths:
             schema:
               $ref: "#/components/schemas/UpdateVehicleRequest"
             examples:
-              차량_수정_2xx:
-                value: "{\"licenseNumber\":\"22나2222\",\"ownershipType\":\"PERSONAL\"\
-                  ,\"brand\":\"현대\",\"modelYear\":2010,\"modelName\":\"그랜져\",\"ownerName\"\
-                  :\"존도\"}"
-              차량_수정_4xx_등록된_차량이_없는_경우:
-                value: "{\"licenseNumber\":\"11가1111\",\"ownershipType\":\"PERSONAL\"\
-                  ,\"brand\":\"기아\",\"modelYear\":2000,\"modelName\":\"sm3\",\"ownerName\"\
-                  :\"홍길동\"}"
               차량_수정_4xx_차량_번호_중복:
                 value: "{\"licenseNumber\":\"11가1111\",\"ownershipType\":\"PERSONAL\"\
                   ,\"brand\":\"기아\",\"modelYear\":2000,\"modelName\":\"sm3\",\"ownerName\"\
@@ -1748,33 +1740,15 @@ paths:
                 value: "{\"licenseNumber\":\"11가1111\",\"ownershipType\":\"stoleMyFriendCar\"\
                   ,\"brand\":\"기아\",\"modelYear\":2000,\"modelName\":\"sm3\",\"ownerName\"\
                   :\"홍길동\"}"
+              차량_수정_2xx:
+                value: "{\"licenseNumber\":\"22나2222\",\"ownershipType\":\"PERSONAL\"\
+                  ,\"brand\":\"현대\",\"modelYear\":2010,\"modelName\":\"그랜져\",\"ownerName\"\
+                  :\"존도\"}"
+              차량_수정_4xx_등록된_차량이_없는_경우:
+                value: "{\"licenseNumber\":\"11가1111\",\"ownershipType\":\"PERSONAL\"\
+                  ,\"brand\":\"기아\",\"modelYear\":2000,\"modelName\":\"sm3\",\"ownerName\"\
+                  :\"홍길동\"}"
       responses:
-        "200":
-          description: "200"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-              examples:
-                차량_수정_2xx:
-                  value: |-
-                    {
-                      "message" : "OK",
-                      "data" : null
-                    }
-        "404":
-          description: "404"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiErrorResponse"
-              examples:
-                차량_수정_4xx_등록된_차량이_없는_경우:
-                  value: |-
-                    {
-                      "message" : "Vehicle을(를) 찾을 수 없습니다.",
-                      "data" : null
-                    }
         "409":
           description: "409"
           content:
@@ -1801,6 +1775,32 @@ paths:
                       "message" : "올바른 차량 유형이 아닙니다.",
                       "data" : null
                     }
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+              examples:
+                차량_수정_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
+                      "data" : null
+                    }
+        "404":
+          description: "404"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiErrorResponse"
+              examples:
+                차량_수정_4xx_등록된_차량이_없는_경우:
+                  value: |-
+                    {
+                      "message" : "Vehicle을(를) 찾을 수 없습니다.",
+                      "data" : null
+                    }
     post:
       tags:
       - Damage - Vehicle
@@ -1814,20 +1814,20 @@ paths:
             schema:
               $ref: "#/components/schemas/RegisterVehicleRequest"
             examples:
-              차량_등록_4xx_사용자_차량이_이미_존재:
-                value: "{\"licenseNumber\":\"11가1111\",\"ownershipType\":\"PERSONAL\"\
-                  ,\"brand\":\"기아\",\"modelYear\":2000,\"modelName\":\"sm3\",\"ownerName\"\
-                  :\"홍길동\"}"
-              차량_등록_2xx:
-                value: "{\"licenseNumber\":\"11가1111\",\"ownershipType\":\"PERSONAL\"\
-                  ,\"brand\":\"기아\",\"modelYear\":2000,\"modelName\":\"sm3\",\"ownerName\"\
-                  :\"홍길동\"}"
               차량_등록_4xx_차량_번호_중복:
                 value: "{\"licenseNumber\":\"11가1111\",\"ownershipType\":\"PERSONAL\"\
                   ,\"brand\":\"기아\",\"modelYear\":2000,\"modelName\":\"sm3\",\"ownerName\"\
                   :\"홍길동\"}"
               차량_등록_4xx_올바른_차량_유형이_아닌_경우:
                 value: "{\"licenseNumber\":\"11가1111\",\"ownershipType\":\"stoleMyFriendCar\"\
+                  ,\"brand\":\"기아\",\"modelYear\":2000,\"modelName\":\"sm3\",\"ownerName\"\
+                  :\"홍길동\"}"
+              차량_등록_4xx_사용자_차량이_이미_존재:
+                value: "{\"licenseNumber\":\"11가1111\",\"ownershipType\":\"PERSONAL\"\
+                  ,\"brand\":\"기아\",\"modelYear\":2000,\"modelName\":\"sm3\",\"ownerName\"\
+                  :\"홍길동\"}"
+              차량_등록_2xx:
+                value: "{\"licenseNumber\":\"11가1111\",\"ownershipType\":\"PERSONAL\"\
                   ,\"brand\":\"기아\",\"modelYear\":2000,\"modelName\":\"sm3\",\"ownerName\"\
                   :\"홍길동\"}"
               차량_등록_4xx_올바른_차량_번호가_아닌_경우:
@@ -1842,30 +1842,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiErrorResponse"
               examples:
-                차량_등록_4xx_사용자_차량이_이미_존재:
-                  value: |-
-                    {
-                      "message" : "이미 등록된 차량이 존재합니다.",
-                      "data" : null
-                    }
                 차량_등록_4xx_차량_번호_중복:
                   value: |-
                     {
                       "message" : "이미 등록된 차량 번호입니다.",
                       "data" : null
                     }
-        "200":
-          description: "200"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiResponse"
-              examples:
-                차량_등록_2xx:
+                차량_등록_4xx_사용자_차량이_이미_존재:
                   value: |-
                     {
-                      "message" : "OK",
-                      "data" : 0
+                      "message" : "이미 등록된 차량이 존재합니다.",
+                      "data" : null
                     }
         "400":
           description: "400"
@@ -1886,13 +1873,6 @@ paths:
                       "message" : "올바른 차량 번호 형식이 아닙니다.",
                       "data" : null
                     }
-    delete:
-      tags:
-      - Damage - Vehicle
-      summary: 차량 삭제
-      description: "## 차량 삭제 기능 \n### 사용법 \n- 사용자가 등록한 차량을 삭제합니다.\n"
-      operationId: 차량_삭제_
-      responses:
         "200":
           description: "200"
           content:
@@ -1900,12 +1880,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiResponse"
               examples:
-                차량_삭제_2xx:
+                차량_등록_2xx:
                   value: |-
                     {
                       "message" : "OK",
-                      "data" : null
+                      "data" : 0
                     }
+    delete:
+      tags:
+      - Damage - Vehicle
+      summary: 차량 삭제
+      description: "## 차량 삭제 기능 \n### 사용법 \n- 사용자가 등록한 차량을 삭제합니다.\n"
+      operationId: 차량_삭제_
+      responses:
         "404":
           description: "404"
           content:
@@ -1917,6 +1904,19 @@ paths:
                   value: |-
                     {
                       "message" : "Vehicle을(를) 찾을 수 없습니다.",
+                      "data" : null
+                    }
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+              examples:
+                차량_삭제_2xx:
+                  value: |-
+                    {
+                      "message" : "OK",
                       "data" : null
                     }
 components:
@@ -2377,18 +2377,6 @@ components:
         message:
           type: string
           description: 성공 응답 메세지입니다.
-    auth-password-verify901416538:
-      required:
-      - code
-      - loginId
-      type: object
-      properties:
-        code:
-          type: string
-          description: 비밀번호 찾기를 통해 얻은 인증번호입니다.
-        loginId:
-          type: string
-          description: 사용자의 아이디입니다.
     RetrieveLoginIdRequest:
       title: RetrieveLoginIdRequest
       required:
@@ -2419,6 +2407,19 @@ components:
         message:
           type: string
           description: 성공 응답 메세지입니다.
+    VerifyPasswordCodeRequest:
+      title: VerifyPasswordCodeRequest
+      required:
+      - code
+      - loginId
+      type: object
+      properties:
+        code:
+          type: string
+          description: 비밀번호 찾기를 통해 얻은 인증번호입니다.
+        loginId:
+          type: string
+          description: 사용자의 아이디입니다.
     AuthenticateUserRequest:
       title: AuthenticateUserRequest
       required:
