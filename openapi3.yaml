@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: 🚘 카우머치 Car U Much
   description: 카우머치 서비스의 API 문서입니다.
-  version: 2026.08.29 18:08
+  version: 2026.08.30 19:10
 servers:
 - url: https://hosting-not-yet
 - url: http://localhost:8080
@@ -625,7 +625,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.685975337"
+                          "createdAt" : "2026-08-30T10:11:02.542529404"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -633,7 +633,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.685975337"
+                          "createdAt" : "2026-08-30T10:11:02.542529404"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -641,7 +641,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.685975337"
+                          "createdAt" : "2026-08-30T10:11:02.542529404"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -649,7 +649,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.685975337"
+                          "createdAt" : "2026-08-30T10:11:02.542529404"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -657,7 +657,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.685975337"
+                          "createdAt" : "2026-08-30T10:11:02.542529404"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -665,7 +665,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.685975337"
+                          "createdAt" : "2026-08-30T10:11:02.542529404"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -673,7 +673,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.685975337"
+                          "createdAt" : "2026-08-30T10:11:02.542529404"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -681,7 +681,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.685975337"
+                          "createdAt" : "2026-08-30T10:11:02.542529404"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -689,7 +689,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.685975337"
+                          "createdAt" : "2026-08-30T10:11:02.542529404"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -697,7 +697,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.685975337"
+                          "createdAt" : "2026-08-30T10:11:02.542529404"
                         } ],
                         "page" : {
                           "number" : 2,
@@ -721,7 +721,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.758555861"
+                          "createdAt" : "2026-08-30T10:11:02.610240274"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -729,7 +729,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.758555861"
+                          "createdAt" : "2026-08-30T10:11:02.610240274"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -737,7 +737,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.758555861"
+                          "createdAt" : "2026-08-30T10:11:02.610240274"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -745,7 +745,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.758555861"
+                          "createdAt" : "2026-08-30T10:11:02.610240274"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -753,7 +753,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.758555861"
+                          "createdAt" : "2026-08-30T10:11:02.610240274"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -761,7 +761,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.758555861"
+                          "createdAt" : "2026-08-30T10:11:02.610240274"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -769,7 +769,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.758555861"
+                          "createdAt" : "2026-08-30T10:11:02.610240274"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -777,7 +777,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.758555861"
+                          "createdAt" : "2026-08-30T10:11:02.610240274"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -785,7 +785,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.758555861"
+                          "createdAt" : "2026-08-30T10:11:02.610240274"
                         }, {
                           "id" : 1,
                           "description" : "소화전을 박았습니다.",
@@ -793,7 +793,7 @@ paths:
                           "preferredRepairSigungu" : "송파구",
                           "isPickupRequired" : false,
                           "status" : "REGISTERED",
-                          "createdAt" : "2026-08-29T09:09:25.758555861"
+                          "createdAt" : "2026-08-30T10:11:02.610240274"
                         } ],
                         "page" : {
                           "number" : 1,
@@ -880,7 +880,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-08-29T09:09:25.846991614"
+                        "createdAt" : "2026-08-30T10:11:02.70338509"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -888,7 +888,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-08-29T09:09:25.846991614"
+                        "createdAt" : "2026-08-30T10:11:02.70338509"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -896,7 +896,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-08-29T09:09:25.846991614"
+                        "createdAt" : "2026-08-30T10:11:02.70338509"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -904,7 +904,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-08-29T09:09:25.846991614"
+                        "createdAt" : "2026-08-30T10:11:02.70338509"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -912,7 +912,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-08-29T09:09:25.846991614"
+                        "createdAt" : "2026-08-30T10:11:02.70338509"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -920,7 +920,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-08-29T09:09:25.846991614"
+                        "createdAt" : "2026-08-30T10:11:02.70338509"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -928,7 +928,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-08-29T09:09:25.846991614"
+                        "createdAt" : "2026-08-30T10:11:02.70338509"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -936,7 +936,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-08-29T09:09:25.846991614"
+                        "createdAt" : "2026-08-30T10:11:02.70338509"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -944,7 +944,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-08-29T09:09:25.846991614"
+                        "createdAt" : "2026-08-30T10:11:02.70338509"
                       }, {
                         "id" : 1,
                         "description" : "소화전을 박았습니다.",
@@ -952,7 +952,7 @@ paths:
                         "preferredRepairSigungu" : "송파구",
                         "isPickupRequired" : false,
                         "status" : "REGISTERED",
-                        "createdAt" : "2026-08-29T09:09:25.846991614"
+                        "createdAt" : "2026-08-30T10:11:02.70338509"
                       } ]
                     }
   /damage-reports/{damageReportId}:
@@ -1048,7 +1048,7 @@ paths:
                         "repairParts" : [ "사이드미러 (좌)", "프론트도어 (좌)", "프론트휠 (좌)" ],
                         "estimateStatus" : "OPEN",
                         "imagePath" : "http://test-image1.com",
-                        "createdAt" : "2026-08-29T09:09:27.280456709",
+                        "createdAt" : "2026-08-30T10:11:04.073170468",
                         "vehicleInfo" : {
                           "licenseNumber" : "11가1111",
                           "ownershipType" : "PERSONAL",
@@ -1285,7 +1285,7 @@ paths:
                         "repairParts" : [ "사이드미러 (좌)", "프론트도어 (좌)", "프론트휠 (좌)" ],
                         "estimateStatus" : "OPEN",
                         "imagePath" : "http://test-image1.com",
-                        "createdAt" : "2026-08-29T09:09:27.366229866",
+                        "createdAt" : "2026-08-30T10:11:04.157263404",
                         "vehicleInfo" : {
                           "licenseNumber" : "11가1111",
                           "ownershipType" : "PERSONAL",
